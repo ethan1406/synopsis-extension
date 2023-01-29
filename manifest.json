@@ -4,8 +4,7 @@
     "version": "1.0",
     "manifest_version": 3,
     "action": {
-      "default_popup": "hello.html",
-      "default_icon": "hello_extensions.png"
+      "default_icon": "images/hello_extensions.png"
     },
     "content_scripts": [
       {
@@ -14,10 +13,17 @@
           "*://www.youtube.com/*",
           "*://m.youtube.com/*"
         ],
-        "js": ["summarization.js"],
-        "css": ["styles.css"],
+        "js": ["contentscript/index.bundle.js"],
+        "css": ["contentscript/styles.css"],
         "run_at": "document_end"
       }
     ],
-    "host_permissions": ["*://*.youtube.com/*"]
+    "host_permissions": ["*://*.youtube.com/*"],
+    "background": {
+      "service_worker": "background.bundle.js",
+      "type": "module"
+    },
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'"
+    }
 }

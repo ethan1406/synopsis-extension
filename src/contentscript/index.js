@@ -1,4 +1,4 @@
-// import $ from "jquery";
+import $ from "jquery";
 
 function getVideoId(url) {
   const urlObject = new URL(url);
@@ -48,13 +48,13 @@ async function getLangOptions() {
 }
 
 async function getTranscript(langOptions) {
-  const rawTranscript = await getRawTranscript(langOptions.link);
+  const langOption = langOptions[0]
+  const rawTranscript = await getRawTranscript(langOption.link);
   const transcript = rawTranscript.map((item) => { return item.text; }).join(' ');
   return transcript;
 }
 
 async function getRawTranscript(link) {
-
   // Get Transcript
   const transcriptPageResponse = await fetch(link); // default 0
   const transcriptPageXml = await transcriptPageResponse.text();
@@ -73,16 +73,35 @@ async function getRawTranscript(link) {
 
 }
 
-function injectElements() {
+async function getSummary(transcript) {
+  const jsonBody = {
+    prompt: transcript
+  }
+  console.log(jsonBody)
+  const summaryResponse = await fetch(
+    'https://eqgrz3rfud.execute-api.us-west-1.amazonaws.com/default/SypnopsisFunction',
+    {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+        'Connection': 'keep-alive',
+      },
+      body: JSON.stringify(jsonBody)
+    })
+  console.log(summaryResponse)
+}
+
+async function injectElements() {
 
 	const summaryButton = document.createElement('button');
 	summaryButton.className = 'Synopsis-summary-button';
 	summaryButton.innerHTML = 'Summarize';
 
-	const langOptions = getLangOptions()
-	// const transcript = getTranscript(langOptions)
-
-	console.log(transcript)
+	const langOptions = await getLangOptions()
+	const transcript = await getTranscript(langOptions)
+  const summary = await getSummary(transcript)
 
 	const subscribe = document.getElementById('subscribe-button');
 	subscribe.parentNode.insertBefore(summaryButton, subscribe.nextsibling)
