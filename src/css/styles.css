@@ -1,0 +1,13 @@
+.Synopsis-summary-button {
+	background-color: #2FDFFC;
+	width: 100px;
+	height: 40px;
+	border-radius: 18px;
+	font-weight: bold;
+	margin-left: 15px;
+}
+.Synopsis-summary-button:hover {
+	background-color: yellow;
+}
+.Synopsis-summary {
+}

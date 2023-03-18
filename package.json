@@ -1,0 +1,39 @@
+{
+  "name": "synopsis-extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jquery-3.6.3.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf dist/*",
+    "build": "npm run clean && webpack",
+    "build-release": "npm run clean && NODE_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ethan1406/synopsis-extension.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ethan1406/synopsis-extension/issues"
+  },
+  "homepage": "https://github.com/ethan1406/synopsis-extension#readme",
+  "dependencies": {
+    "jquery": "^3.6.3"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.4.0",
+    "file-loader": "^6.2.0",
+    "fs-extra": "^10.0.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.4.0",
+    "jest": "^27.2.4",
+    "rimraf": "^3.0.2",
+    "webpack": "^5.59.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1",
+    "write-file-webpack-plugin": "^4.5.1"
+  }
+}
